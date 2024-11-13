@@ -121,12 +121,13 @@ function ip_tracker_admin_page()
 
     $results = $wpdb->get_results($wpdb->prepare("SELECT * FROM $table_name ORDER BY visit_time DESC LIMIT %d OFFSET %d", $items_per_page, $offset));
 
-    echo '<div class="wrap">';
-    echo '<h1>IP Tracker Logs</h1>';
 
-    echo '<form method="post">';
+    echo '<div class="wrap">';
 
     if ($results) {
+        echo '<h1>IP Tracker Logs</h1>';
+        echo '<form method="post">';
+
         echo '<table class="widefat fixed" cellspacing="0">';
         echo '<thead><tr>';
         echo '<th class="manage-column column-cb check-column"><input type="checkbox" id="select_all" /></th>';
@@ -148,12 +149,13 @@ function ip_tracker_admin_page()
         }
 
         echo '</tbody></table>';
+
+        echo '<div style="margin-top: 10px;"><input type="submit" name="delete_ips" class="button action" value="Delete Selected"></div>';
+        echo '</form>';
     } else {
         echo '<p>No records found.</p>';
     }
 
-    echo '<div style="margin-top: 10px;"><input type="submit" name="delete_ips" class="button action" value="Delete Selected"></div>';
-    echo '</form>';
 
     // Pagination controls
     $total_pages = ceil($total_items / $items_per_page);
